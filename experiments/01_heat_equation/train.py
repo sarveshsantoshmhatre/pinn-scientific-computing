@@ -34,7 +34,12 @@ def main():
     model = PINN(hidden_dim=64, hidden_layers=4).to(device)
     history = train_heat_pinn(model, config, verbose_every=250)
 
+    # Create output directories before saving checkpoints and figures.
     results = ROOT / "results"
+    (results / "figures").mkdir(parents=True, exist_ok=True)
+    (results / "models").mkdir(parents=True, exist_ok=True)
+    (results / "metrics").mkdir(parents=True, exist_ok=True)
+
     save_training_curve(history, results / "figures" / "training_loss.png")
     torch.save(model.state_dict(), results / "models" / "heat_pinn.pt")
 
