@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive visual explanation of a Physics-Informed Neural Network for heat transfer.">
+  <title>PINN Scientific Computing | Project Showcase</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-mark">∿</span> PINN Scientific Computing</a>
+    <nav>
+      <a href="#what">What is PINN?</a>
+      <a href="#how">How it works</a>
+      <a href="#results">Results</a>
+      <a href="#roadmap">Roadmap</a>
+    </nav>
+    <button id="themeToggle" class="icon-button" aria-label="Toggle theme">◐</button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy">
+        <span class="eyebrow">SCIENCE + AI + DEEP LEARNING</span>
+        <h1>Teaching a neural network the <span>laws of nature.</span></h1>
+        <p class="hero-text">This project uses a Physics-Informed Neural Network (PINN) to learn how heat moves through a rod. Instead of learning from data alone, the model is trained to respect the physics equation.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#how">See how it works →</a>
+          <a class="button secondary" href="#results">Explore results</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>1D</strong><span>Heat equation</span></div>
+          <div><strong>PyTorch</strong><span>Deep learning</span></div>
+          <div><strong>FDM</strong><span>Classical benchmark</span></div>
+          <div><strong>Local</strong><span>Runs on PC/GPU</span></div>
+        </div>
+      </div>
+      <div class="hero-visual glass-card">
+        <div class="visual-header"><span class="status-dot"></span> LIVE CONCEPT VIEW <span class="chip">PINN</span></div>
+        <div class="rod-scene">
+          <div class="temperature-label hot">HOT</div>
+          <div id="rod" class="rod"></div>
+          <div class="temperature-label cold">COLD</div>
+        </div>
+        <div class="axis"><span>Position x →</span><span>Time t ↓</span></div>
+        <div class="mini-equation">∂T/∂t = α ∂²T/∂x²</div>
+        <p class="visual-caption">The model predicts temperature <b>T(x,t)</b> while the heat equation checks whether that prediction makes physical sense.</p>
+      </div>
+    </section>
+
+    <section id="what" class="section-shell">
+      <div class="section-heading"><span class="section-number">01</span><div><p class="eyebrow">THE BIG IDEA</p><h2>What is a PINN?</h2></div></div>
+      <div class="three-cards">
+        <article class="info-card"><div class="card-icon">AI</div><h3>Neural network</h3><p>A small deep-learning model receives position and time, then predicts the temperature at that point.</p></article>
+        <article class="info-card"><div class="card-icon">Σ</div><h3>Physics knowledge</h3><p>The governing heat equation becomes part of the training objective. The network is rewarded for obeying it.</p></article>
+        <article class="info-card"><div class="card-icon">✓</div><h3>Scientific validation</h3><p>The learned solution is compared with an analytical solution and a traditional finite-difference method.</p></article>
+      </div>
+      <div class="plain-language glass-card"><div class="quote-mark">“</div><div><h3>In simple words</h3><p>Imagine asking an AI to predict the temperature along a metal rod. A normal neural network learns patterns from examples. A PINN also knows the rule that heat must follow, so it learns a solution that is both <b>accurate</b> and <b>physically consistent</b>.</p></div></div>
+    </section>
+
+    <section id="how" class="section-shell dark-section">
+      <div class="section-heading light"><span class="section-number">02</span><div><p class="eyebrow">INSIDE THE MODEL</p><h2>How does it learn?</h2></div></div>
+      <div class="workflow">
+        <div class="flow-step"><span>1</span><b>Choose points</b><small>Sample positions and times inside the rod.</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span>2</span><b>Make a prediction</b><small>The neural network predicts temperature.</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span>3</span><b>Check physics</b><small>Automatic differentiation evaluates the PDE residual.</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span>4</span><b>Correct the model</b><small>Loss guides the optimizer to improve the network.</small></div>
+      </div>
+      <div class="loss-explainer">
+        <div><p class="eyebrow">THE TRAINING SCORE</p><h3>Total loss = Physics + Initial condition + Boundary condition</h3><p>Each part answers a simple question: <b>Does the prediction obey the heat law?</b> Does it start correctly? Does it behave correctly at the two ends?</p></div>
+        <div class="loss-bars"><div><span>Physics</span><i style="--w:76%"></i></div><div><span>Initial</span><i style="--w:48%"></i></div><div><span>Boundary</span><i style="--w:31%"></i></div></div>
+      </div>
+    </section>
+
+    <section id="results" class="section-shell">
+      <div class="section-heading"><span class="section-number">03</span><div><p class="eyebrow">WHAT THE COMPUTER PRODUCES</p><h2>Visual results</h2></div></div>
+      <div class="result-grid">
+        <article class="chart-card large"><div class="chart-title"><div><span class="chart-kicker">TRAINING</span><h3>Loss decreases as learning progresses</h3></div><span class="metric-pill">3,000 epochs</span></div><canvas id="lossChart" aria-label="Illustrative training loss chart"></canvas><p class="chart-note">A lower loss means the network is becoming more consistent with the equation and conditions.</p></article>
+        <article class="chart-card"><div class="chart-title"><div><span class="chart-kicker">TEMPERATURE</span><h3>Heat distribution</h3></div></div><canvas id="heatmap" aria-label="Interactive heat distribution visualization"></canvas><label class="slider-label">Move through time <input id="timeSlider" type="range" min="0" max="100" value="35"><span id="timeValue">t = 0.35</span></label><p class="chart-note">Hot regions gradually cool and spread according to the heat equation.</p></article>
+      </div>
+      <div class="comparison glass-card"><div class="comparison-copy"><span class="chart-kicker">BENCHMARK</span><h3>PINN vs traditional numerical method</h3><p>The project does not stop at “the neural network trained.” It compares the learned field with the analytical solution and a Finite Difference Method (FDM) baseline.</p><div class="legend"><span><i class="dot pinn"></i> PINN</span><span><i class="dot fdm"></i> FDM</span><span><i class="dot exact"></i> Exact solution</span></div></div><canvas id="comparisonChart" aria-label="PINN and FDM comparison chart"></canvas></div>
+      <div class="result-callouts"><div><b>MAE</b><span>Mean Absolute Error</span><small>Average size of prediction errors.</small></div><div><b>RMSE</b><span>Root Mean Square Error</span><small>Penalizes larger errors more strongly.</small></div><div><b>GPU</b><span>Accelerated training</span><small>The experiment can use CUDA when available.</small></div></div>
+    </section>
+
+    <section class="section-shell explain-section">
+      <div class="section-heading"><span class="section-number">04</span><div><p class="eyebrow">WHY IT MATTERS</p><h2>From a student project to scientific ML</h2></div></div>
+      <div class="impact-grid">
+        <div class="impact-main glass-card"><h3>Why use physics with AI?</h3><div class="impact-row"><span class="impact-icon">01</span><div><b>Less dependence on huge datasets</b><p>Known scientific rules provide useful guidance during training.</p></div></div><div class="impact-row"><span class="impact-icon">02</span><div><b>Better scientific interpretation</b><p>The model is connected to an equation with a physical meaning.</p></div></div><div class="impact-row"><span class="impact-icon">03</span><div><b>A reusable research foundation</b><p>The same approach can be extended to waves, fluid flow and inverse problems.</p></div></div></div>
+        <div class="equation-card"><span class="chart-kicker">CURRENT PROBLEM</span><h3>1D Heat Equation</h3><div class="big-equation">∂T<br><span>∂t</span> = α <span>∂²T</span><br><span>∂x²</span></div><ul><li><b>T</b> = temperature</li><li><b>x</b> = position along the rod</li><li><b>t</b> = time</li><li><b>α</b> = thermal diffusivity</li></ul></div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section-shell roadmap-section">
+      <div class="section-heading"><span class="section-number">05</span><div><p class="eyebrow">FOUR-YEAR GROWTH PATH</p><h2>Where this project can go next</h2></div></div>
+      <div class="roadmap"><div class="road active"><span>01</span><b>Heat equation</b><small>Current<br>PINN + FDM</small></div><div class="road"><span>02</span><b>Wave equation</b><small>Vibrations & acoustics</small></div><div class="road"><span>03</span><b>Burgers equation</b><small>Fluid dynamics</small></div><div class="road"><span>04</span><b>Inverse problems</b><small>Discover unknown parameters</small></div><div class="road"><span>05</span><b>Real-world data</b><small>Sparse & noisy sensors</small></div></div>
+    </section>
+  </main>
+
+  <footer><div><b>PINN Scientific Computing</b><span>Local-first Physics-Informed Neural Network project</span></div><div class="footer-links"><a href="../README.md">Project documentation</a><a href="https://github.com/sarveshsantoshmhatre/pinn-scientific-computing">GitHub repository</a></div></footer>
+  <script src="app.js"></script>
+</body>
+</html>
