@@ -2,6 +2,20 @@
 
 A local-first Scientific Machine Learning project using **Physics-Informed Neural Networks (PINNs)** with PyTorch. The first application solves the 1D heat equation and compares the learned solution with a classical Finite Difference Method (FDM) baseline.
 
+## Project showcase
+
+This repository now includes a visual, non-technical project website for presentations to faculty, recruiters, project reviewers and other visitors.
+
+**Open locally:**
+
+```bash
+python -m http.server 8000 --directory frontend
+```
+
+Then visit `http://localhost:8000` in your browser.
+
+The showcase explains the project using an interactive heat visualization, training-loss chart, PINN/FDM comparison, plain-language explanations, and a four-year roadmap. The website's illustrative charts are clearly labeled as educational visuals; the scientific experiment remains the source of measured results.
+
 ## Project goals
 
 - Learn neural networks through a physics-based problem.
@@ -74,7 +88,7 @@ python experiments/01_heat_equation/train.py
 
 ```powershell
 python -m venv .venv
-.venv\Scripts\activate
+.venv\\Scripts\\activate
 pip install -r requirements.txt
 python experiments/01_heat_equation/train.py
 ```
@@ -84,6 +98,11 @@ Results are written to `results/`.
 ## Repository structure
 
 ```text
+frontend/
+  index.html                   Visual project showcase
+  style.css                    Responsive presentation styling
+  app.js                       Interactive charts and heat visualization
+  README.md                    Frontend usage notes
 src/
   models/pinn.py              Reusable PINN neural network
   physics/heat_equation.py   PDE, sampling and loss functions
@@ -112,4 +131,4 @@ results/                       Generated figures, metrics and checkpoints
 
 ## Status
 
-The repository is intentionally local-first. No web deployment is required for the core project.
+The repository is intentionally local-first. No web deployment is required for the core project. The frontend is a local presentation layer and does not replace the scientific Python pipeline.
